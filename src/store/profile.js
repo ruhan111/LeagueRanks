@@ -46,7 +46,6 @@ const fetchProfile = async (puuid) => {
       profileData.profileIconUrl = profileIconUrl;
 
       profile.update((n) => [...n, profileData]);
-      console.log(profileData.tierImage)
     }
   }
 };
@@ -65,7 +64,29 @@ const getTierImageUrl = (tier) => {
   return tierImages[tier.toUpperCase()] || '';
 };
 
-fetchProfile("fOfb-fwt1c7Ma9k4_gxE9XAg_xFkUE063EbG02_ADrs14rtu");
-fetchProfile("xfz9P6MJ4KPquDrzkORliaOCOFgtEk61zWouYXZPscGK1ig");
-fetchProfile("s4Oj8ed_EicbcjE_HYhhr_oGG1RLgmIEDb3VnpS_YiLOmGcV");
-fetchProfile("uEbMtx18lbwD2Abm_nFEeW4wRNJsuceHkwEjTnCOdPV1Elig");
+const sortProfileArray = () => {
+  profile.update((profiles) => {
+    profiles.sort((a, b) => {
+      if (a.tier !== b.tier) {
+        const tierOrder = ['CHALLENGER', 'GRANDMASTER', 'MASTER', 'DIAMOND', 'PLATINUM', 'GOLD', 'SILVER', 'BRONZE'];
+        return tierOrder.indexOf(a.tier.toUpperCase()) - tierOrder.indexOf(b.tier.toUpperCase());
+      } else if (a.rank !== b.rank) {
+        const rankOrder = ['IV', 'III', 'II', 'I'];
+        return rankOrder.indexOf(a.rank.toUpperCase()) - rankOrder.indexOf(b.rank.toUpperCase());
+      }
+
+      return b.leaguePoints - a.leaguePoints;
+    });
+    return profiles;
+  });
+};
+
+Promise.all([
+  fetchProfile("fOfb-fwt1c7Ma9k4_gxE9XAg_xFkUE063EbG02_ADrs14rtu"),
+  fetchProfile("xfz9P6MJ4KPquDrzkORliaOCOFgtEk61zWouYXZPscGK1ig"),
+  fetchProfile("s4Oj8ed_EicbcjE_HYhhr_oGG1RLgmIEDb3VnpS_YiLOmGcV"),
+  fetchProfile("uEbMtx18lbwD2Abm_nFEeW4wRNJsuceHkwEjTnCOdPV1Elig")
+]).then(sortProfileArray)
+  .catch((error) => {
+    console.error("Error fetching profiles:", error);
+  });

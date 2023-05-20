@@ -5,15 +5,15 @@
     let profiles = [];
 
     $: {
-        profiles = ($profile) 
+        profiles = $profile;
     }
 </script>
 
 <div class="container">
     <h1 class="queue">SOLO QUEUE</h1>
-    {#each profiles as prof}
+    {#each profiles as prof, index}
         <Card
-            
+            style={index === 0 ? "border: 2px dashed #FFD700" : ""}
             tierIcon={prof.tierImage}
             summonerName={prof.summonerName}
             tier={prof.tier}

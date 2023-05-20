@@ -8,9 +8,10 @@
     export let winrate;
     export let profileIcon;
     export let tierIcon;
+    export let style;
 </script>
 
-<div class="card">
+<div class="card" style={style}>
     <div class="row">
         <img src={profileIcon} alt="profile icon" />
         <h3>{summonerName}</h3>
@@ -34,6 +35,7 @@
 </div>
 
 <style>
+
     .tier {
         font-size: smaller;
         margin-left: 20px;
