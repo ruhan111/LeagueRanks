@@ -12,6 +12,7 @@ const fetchProfile = async (puuid) => {
   });
   const data = await res.json();
 
+
   for (let i = 0; i < data.length; i++) {
     if (data[i].queueType === "RANKED_SOLO_5x5") {
       const profileData = {
@@ -46,7 +47,7 @@ const fetchProfile = async (puuid) => {
 
       profileData.profileIconUrl = profileIconUrl;
 
-      const isInGame = await checkIfInGame(summonerData.id);
+      const isInGame = checkIfInGame(summonerData.id);
       profile.update((n) => [...n, profileData]);
 
     }
@@ -68,7 +69,7 @@ const getTierImageUrl = (tier) => {
 };
 
 const checkIfInGame = async (summonerId) => {
-  const url = 'https://radiant-woodland-44834.herokuapp.com/https://EUW1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/${summonerId}';
+  const url = 'https://radiant-woodland-44834.herokuapp.com/https://EUW1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/' + summonerId;
   const res = await fetch(url, {
     headers: {
       'X-Riot-Token': 'RGAPI-80996c5a-b395-4341-8c55-e314d305cd5c',
