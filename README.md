@@ -40,6 +40,8 @@ You can preview the production build with `npm run preview`.
 
 This application uses store to access data in realtime from Riot Games official API. Using Heroku for CORS proxy server due to cors error. this is the dashboard
 
-![image](https://github.com/ruhan111/LeagueRanks/assets/44141079/bff9231a-98e1-456c-8dc9-e9c240d28c8b)
-![image](https://github.com/ruhan111/LeagueRanks/assets/44141079/e2d44cb4-528b-43e6-b9d1-5a829c8b0f6f)
+![image](https://github.com/ruhan111/LeagueRanks/assets/44141079/66d783b0-b6f6-4bdf-8c49-d91732706ae7)
+![image](https://github.com/ruhan111/LeagueRanks/assets/44141079/821591c3-9a2a-4d8a-967c-f1f7d1b845f7)
+
+
 
