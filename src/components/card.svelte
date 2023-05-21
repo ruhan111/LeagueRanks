@@ -9,12 +9,19 @@
     export let profileIcon;
     export let tierIcon;
     export let style;
+    export let inGame;
 </script>
 
 <div class="card" style={style}>
     <div class="row">
         <img src={profileIcon} alt="profile icon" />
         <h3>{summonerName}</h3>
+        <p>STATUS: </p>
+        {#if !inGame}
+            <p class="gameText" style="color: red">NOT INGAME</p>
+        {:else}
+            <p class="gameText" color: green>INGAME</p>
+        {/if}
         <div class="bar">
             <div
                 class="losses"
@@ -35,6 +42,10 @@
 </div>
 
 <style>
+    .gameText {
+        font-size: small;
+        margin-left: 20px;
+    }
 
     .tier {
         font-size: smaller;
@@ -85,7 +96,7 @@
         justify-content: flex-start;
         flex-direction: column;
         margin-bottom: 5px;
-        margin-left: 50px;
+        margin-left: 20px;
     }
 
     .wins {
@@ -114,6 +125,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+        }
+        .gameText {
+            margin-right: 25px;
         }
         .card {
             width: 100%;

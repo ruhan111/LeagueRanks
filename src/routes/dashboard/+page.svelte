@@ -19,6 +19,7 @@
     {:else}
     {#each profiles as prof, index}
         <Card
+            inGame={prof.inGame}
             style={index === 0 ? "border: 2px dashed #FFD700" : ""}
             tierIcon={prof.tierImage}
             summonerName={prof.summonerName}

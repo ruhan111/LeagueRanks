@@ -6,7 +6,7 @@ const fetchProfile = async (puuid) => {
   const url = "https://radiant-woodland-44834.herokuapp.com/https://EUW1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + puuid;
   const res = await fetch(url, {
     headers: {
-      "X-Riot-Token": "RGAPI-b5da6378-964e-41fa-aaa0-09becad3c25b",
+      "X-Riot-Token": "RGAPI-80996c5a-b395-4341-8c55-e314d305cd5c",
       origin: "http://localhost:5173",
     },
   });
@@ -25,13 +25,14 @@ const fetchProfile = async (puuid) => {
         profileIconUrl: "",
         queueType: data[i].queueType,
         tierImage: getTierImageUrl(data[i].tier),
+        isInGame: false,
       };
 
       const summonerName = data[i].summonerName;
       const summonerUrl = `https://radiant-woodland-44834.herokuapp.com/https://EUW1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summonerName}`;
       const summonerResponse = await fetch(summonerUrl, {
         headers: {
-          "X-Riot-Token": "RGAPI-b5da6378-964e-41fa-aaa0-09becad3c25b",
+          "X-Riot-Token": "RGAPI-80996c5a-b395-4341-8c55-e314d305cd5c",
           origin: "http://localhost:5173",
         },
       });
@@ -45,7 +46,9 @@ const fetchProfile = async (puuid) => {
 
       profileData.profileIconUrl = profileIconUrl;
 
+      const isInGame = await checkIfInGame(summonerData.id);
       profile.update((n) => [...n, profileData]);
+
     }
   }
 };
@@ -62,6 +65,17 @@ const getTierImageUrl = (tier) => {
     CHALLENGER: '/src/images/challenger_baseface_matte.png',
   };
   return tierImages[tier.toUpperCase()] || '';
+};
+
+const checkIfInGame = async (summonerId) => {
+  const url = 'https://radiant-woodland-44834.herokuapp.com/https://EUW1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/${summonerId}';
+  const res = await fetch(url, {
+    headers: {
+      'X-Riot-Token': 'RGAPI-80996c5a-b395-4341-8c55-e314d305cd5c',
+      origin: 'http://localhost:5173',
+    },
+  });
+  return res.status === 200;
 };
 
 const sortProfileArray = () => {
